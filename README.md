@@ -52,4 +52,11 @@ myarr(1) = "Laxman"
 myarr(2) = "Sita"
 
 
-### 
+## Scala collections
+-----------------------------------------------------------------------------
+Collections , as the name suggests, it contains a group of elements 
+
+1. List  : contains a list of similar elements 
+2. Tuples : can contain elements of different type unlike lists
+3. Maps : collection of key-value pairs 
+4. Sets : collections of pairwise elements of same type 
