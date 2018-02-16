@@ -4,7 +4,7 @@ Scala is a modern multi-paradigm programming language designed to express common
 ## Arrays
 
 ### Program 1
-
+```
 object Myarray{
 
  def main(args:Array[String])
@@ -15,9 +15,9 @@ object Myarray{
    println(mynames)
  }  
 }
-
+```
 ### Program 2
-
+```
 object Myarray{
 
  def main(args:Array[String])
@@ -28,9 +28,9 @@ object Myarray{
    println(mynames.mkString(" "))
  }  
 }
-
+```
 ### Program 3
-
+```
 object Myarray{
 
  def main(args:Array[String])
@@ -43,15 +43,15 @@ object Myarray{
        }
  }  
 }
-
+```
 ### Creating and initializing the elemensts into array
-
+```
 var myarr = new Array[Strings](3)
 myarr(0) = "Ram"
 myarr(1) = "Laxman"
 myarr(2) = "Sita"
 
-
+```
 ## Scala collections
 -----------------------------------------------------------------------------
 Collections , as the name suggests, it contains a group of elements 
