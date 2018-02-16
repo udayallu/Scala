@@ -67,7 +67,8 @@ Collections , as the name suggests, it contains a group of elements
 val myfilerdd = sc.textFile("/home/hduser/movie.mp4")
 myfilerdd.collect()
 ```
-[logo]: https://github.com/udayallu/Scala/blob/master/Scala%20Images/local.PNG "Logo Title Text 2"
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/local.PNG)
+
 ### hdfd system
 #### step-1
 1.First copy the movie into the hdfs
@@ -80,6 +81,8 @@ hadoop fs -mkdir movie
 // moving the file into the movie folder created inthe hdfs
 hadoop fs -put movie.mp4 movie
 ```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/scala%20hdfs1.PNG)
+
 #### step-2
 1. go to the scala terminal
 2. use the following code to read
@@ -88,3 +91,5 @@ val myfilerddhdfs = sc.textFile("hdfs://localhost:54310/user/hduser/movie/movie.
 myfilerddhdfs.getNumPartitions
 
 ```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/scala%20hdfs%202.PNG)
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/hdfs%203.PNG)
