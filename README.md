@@ -174,4 +174,89 @@ sc.stop()
 
 }
 ```
-![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/transf1.PNG)
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/parell1.PNG)
+
+#### Program for the string reverse 
+
+```
+package bigdata.spark_applications
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkContext._
+
+
+object Mymapdemo {
+ 
+ def myrev(a:String):String={
+   var   String = (for(i <- a.length - 1 to 0 by -1) yield a(i)).mkString
+
+   return String
+ }
+ 
+def main(args:Array[String]) = {
+
+//We are creating a spark context object and also naming it
+val conf = new SparkConf().setAppName("my map demo").setMaster("local")
+val sc = new SparkContext(conf)
+
+val myrdd=sc.parallelize(List("hello","world"),2)
+val inc_rdd = myrdd.map(myrev)
+inc_rdd.foreach(println)
+System.in.read()
+sc.stop()
+
+ }
+
+}
+
+```
+
+### Understanding flatMap
+#### Slpitting the words using space
+```
+val sent = List("This is Bangalore city")
+val myrdd = sc.makeRDD(sent)
+val mywords = myrdd.flatMap(_.split(" "))
+mywords.collect()
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/split1.PNG)
+
+#### Seprating the elements that are dividible by 2
+```
+val mynum=List(1,2,3,4,5)
+val myrdd = sc.makeRDD(mynum)
+val filtered_rdd = myrdd.filter(v=>(v%2 == 0))
+filtered_rdd.collect
+```
+
+### Understanding map partitions
+
+1. This is an API which is used to perform an operation on an individual partition as a whole API's like map.
+2. Map used to perfom transformation basically row-by-row
+3. whereas the mapPartitions API will allow us to iterate over all the elements of a parition at will.
+
+#### What kind of operations nedds mapParitions ?
+1. Some kind of special reducer logic 
+2. What if we want to do an operation on the data set which is a sequential operation 
+3. Finding the min or max within a partition (on a dataset which contains numbers
+
+#### Program 4
+1. In a spark program, if we pass a function to map partitions as an argument, that function must return an iterator ! 
+2. only it returns an iterator, but also takes an iterator as an argument ! 
+```
+def myfunc(nums:Iterator[Int]): Iterator[Int]= {
+
+    var sum = 0
+
+  
+    while(nums.hasNext) {sum=sum+nums.next}
+ 
+    val myit = Iterator(sum)
+    return myit
+}
+
+val myrdd = sc.parallelize(List(1,2,3,4,5,6,7,8,9,10))
+val myx = myrdd.mapPartitions(myfunc)
+myx.collect
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/iterator.PNG)
