@@ -16,6 +16,7 @@ object Myarray{
  }  
 }
 ```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/scala1.PNG)
 ### Program 2
 ```
 object Myarray{
@@ -93,3 +94,84 @@ myfilerddhdfs.getNumPartitions
 ```
 ![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/scala%20hdfs%202.PNG)
 ![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/hdfs%203.PNG)
+
+## Transformations 
+#### Example 1
+incNUM is mapping to the myrdd 
+```
+val myNum=List(1,2,3,4,5)
+val myrdd = sc.makeRDD(mynum)
+val incNum = myrdd.map(v=>(v+1))
+incNum.collect()
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/transf1.PNG)
+
+#### Example 2
+```
+val myNum=List(1,2,3,4,5)
+val myrdd = sc.makeRDD(mynum)
+val incNum = myrdd.map(v=>(v,1))
+incNum.collect()
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/transf1.PNG)
+
+### Parell 2 in eclipse
+
+```
+package bigdata.spark_applications
+
+import org.apache.spark.SparkConf
+
+import org.apache.spark.SparkContext
+
+import org.apache.spark.SparkContext._
+
+
+
+
+
+object Mymapdemo {
+
+  
+
+  def myinc(a:Int):Int={
+
+    var b=a+1
+
+    return b
+
+  }
+
+  
+
+def main(args:Array[String]) = {
+
+
+
+//We are creating a spark context object and also naming it
+
+val conf = new SparkConf().setAppName("my map demo").setMaster("local")
+
+val sc = new SparkContext(conf)
+
+
+
+val myrdd=sc.parallelize(List(1,2,3,4,5,6,7,8,9),2)
+
+val inc_rdd = myrdd.map(myinc)
+
+inc_rdd.foreach(println)
+
+System.in.read()
+
+sc.stop()
+
+
+
+  }
+
+
+
+}
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/transf1.PNG)
