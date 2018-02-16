@@ -60,3 +60,30 @@ Collections , as the name suggests, it contains a group of elements
 2. Tuples : can contain elements of different type unlike lists
 3. Maps : collection of key-value pairs 
 4. Sets : collections of pairwise elements of same type 
+
+## Direclty reading from a text file in local file system (will be the most used one)
+### local system
+```
+val myfilerdd = sc.textFile("/home/hduser/movie.mp4")
+myfilerdd.collect()
+```
+### hdfd system
+#### step-1
+1.First copy the movie into the hdfs
+2. start the hadoop services
+3. copy the file to the unix
+```
+start-all.sh
+// creating the movie folder
+hadoop fs -mkdir movie
+// moving the file into the movie folder created inthe hdfs
+hadoop fs -put movie.mp4 movie
+```
+#### step-2
+1. go to the scala terminal
+2. use the following code to read
+```
+val myfilerddhdfs = sc.textFile("hdfs://localhost:54310/user/hduser/movie/movie.mp4")
+myfilerddhdfs.getNumPartitions
+
+```
