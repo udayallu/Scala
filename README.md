@@ -67,6 +67,7 @@ Collections , as the name suggests, it contains a group of elements
 val myfilerdd = sc.textFile("/home/hduser/movie.mp4")
 myfilerdd.collect()
 ```
+[logo]: https://github.com/udayallu/Scala/blob/master/Scala%20Images/local.PNG "Logo Title Text 2"
 ### hdfd system
 #### step-1
 1.First copy the movie into the hdfs
