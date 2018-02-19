@@ -126,13 +126,7 @@ import org.apache.spark.SparkContext
 
 import org.apache.spark.SparkContext._
 
-
-
-
-
 object Mymapdemo {
-
-  
 
   def myinc(a:Int):Int={
 
@@ -142,20 +136,12 @@ object Mymapdemo {
 
   }
 
-  
-
 def main(args:Array[String]) = {
-
-
-
 //We are creating a spark context object and also naming it
 
 val conf = new SparkConf().setAppName("my map demo").setMaster("local")
 
 val sc = new SparkContext(conf)
-
-
-
 val myrdd=sc.parallelize(List(1,2,3,4,5,6,7,8,9),2)
 
 val inc_rdd = myrdd.map(myinc)
@@ -166,12 +152,7 @@ System.in.read()
 
 sc.stop()
 
-
-
   }
-
-
-
 }
 ```
 ![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/parell1.PNG)
