@@ -370,8 +370,6 @@ a.reduceLeft(_+_)
 ```
 a.reduceLeft( (a,b) => {a+b} )
 ```
-![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/reduce%20by.PNG)
-
 ```
 a.reduceLeft((a,b)=>{println(a+","+b); a+b})
 ```
