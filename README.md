@@ -242,6 +242,27 @@ myx.collect
 ```
 ![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/iterator.PNG)
 
+#### using list
+I am returning an iterator which containts a list (partition number, and the sum of numbers in that partition)
+```
+def myfunc(mycount:Int,nums:Iterator[Int]): Iterator[List[Int]] = { 
+
+
+
+    var sum = 0
+
+  
+    while(nums.hasNext) {sum=sum+nums.next}
+  
+    val myit = Iterator(List(mycount,sum))
+    return(myit)
+}
+
+val myrdd = sc.parallelize(List(1,2,3,4,5,6,7,8,9,10))
+val myx = myrdd.mapPartitionsWithIndex(myfunc)
+myx.collect
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/index%20ex.PNG)
 
 ### Program to print the front 10 words and back 10 words 
 
