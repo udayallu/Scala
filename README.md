@@ -324,6 +324,8 @@ mywords.collect
 ```
 ![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/mywords.PNG)
 #### Group By
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/grp_img.PNG)
+
 ```
 val sent = sc.makeRDD(List("Hello hi how are you hi I am hello"))
 val mywords = sent.flatMap(_.split(" "))  
@@ -337,3 +339,18 @@ myfinalsc.collect
 ```
 ![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/group_by.PNG)
 #### Reduce By
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/rdu_img.PNG)
+Once we call reduceBykey (an internal shuffling i.e aggregation will happen) and an intermediate RDD will be formed which will look like the one given below hello 
+- 1 1, hi 1 1 1, how 1, are 1   (intermidiate RDD1) these are all pair RDD's in the form of k,v
+- you 1, I 1, am 1                     (intermediate RDD2) 
+
+//To get the key value pair "hello 1 1" , reduceByKey internally calls "combineByKey" API
+
+```
+val sent = sc.makeRDD(List("Hello hi hi how are you hi I am hello am"))
+val mywords = sent.flatMap(_.split(" "))  
+val mykv = mywords.map(words => (words,1)) 
+mykv.reduceByKey(_+_).collect
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/reduce%20by.PNG)
+
