@@ -401,3 +401,29 @@ val b = List("Hello","How","are","you")
 b.foldLeft(",")(_+_+",")
 ```
 ![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/fold%20str.PNG)
+
+### Finding the max or min on large data set using the Scala API foldLeft
+```
+a.foldLeft(0)( (acc,ele) => (if(ele > acc) ele else acc ))
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/min_max_fold.PNG)
+
+#### How to read this above statement ?
+
+- The foldLeft takes an initializer called as an accumulator which in our case is initialized to zero
+- It takes a function as an argument which takes 2 values as parameters 
+- acc : Which is the accumulator 
+- ele : This is a place holder (a variable) to hold each element from the collection (which in our case is a list of numbers)
+Note: Using fold is easier to write code, however the same can be implemented using reduce as well as given below 
+
+```
+def mymax(a: Int, b: Int) : Int = {
+var max = 0 
+if (a>b) {max = a}
+else {max = b}
+return max }
+
+
+val a = List(1,2,3,4,5)
+a.reduce((a,b) => (mymax(a,b))
+```
