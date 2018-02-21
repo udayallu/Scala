@@ -241,3 +241,31 @@ val myx = myrdd.mapPartitions(myfunc)
 myx.collect
 ```
 ![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/iterator.PNG)
+
+
+### Program to print the front 10 words and back 10 words 
+
+```
+def funcpartitionstring(numbers : Iterator[String]) : Iterator[scala.collection.mutable.ListBuffer[String]] =
+{
+val pattern = """(?:[a-zA-Z'-]+[^a-zA-Z'-]+){0,10}\b(blood)\b(?:[^a-zA-Z'-]+[a-zA-Z'-]+){0,10}""".r
+val pattern1 = """(?:[a-zA-Z'-]+[^a-zA-Z'-]+){0,10}\b(kill)\b(?:[^a-zA-Z'-]+[a-zA-Z'-]+){0,10}""".r
+val pattern1 = """(?:[a-zA-Z'-]+[^a-zA-Z'-]+){0,10}\b(dead)\b(?:[^a-zA-Z'-]+[a-zA-Z'-]+){0,10}""".r
+
+var li= numbers.mkString
+var initial=0
+var si=li.size
+import scala.collection.mutable.ListBuffer
+val res = new ListBuffer[String]()
+
+res +=(pattern findAllIn li).mkString("\n")
+res +=(pattern1 findAllIn li).mkString("\n")
+
+val res2 = Iterator(res)
+return res2
+}
+ 
+val myfilerddhdfsmovie = sc.textFile("hdfs://localhost:54310/user/hduser/books/born_on_crime.txt")
+var d = myfilerddhdfsmovie.mapPartitions(funcpartitionstring)
+d.foreach(println)
+```
