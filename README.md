@@ -338,7 +338,7 @@ myfinalsc.collect
 
 ```
 ![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/group_by.PNG)
-#### Reduce By
+#### Reduce By It can be used on the operations that comes under the set asscocativity 
 ![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/rdu_img.PNG)
 Once we call reduceBykey (an internal shuffling i.e aggregation will happen) and an intermediate RDD will be formed which will look like the one given below hello 
 - 1 1, hi 1 1 1, how 1, are 1   (intermidiate RDD1) these are all pair RDD's in the form of k,v
@@ -354,3 +354,52 @@ mykv.reduceByKey(_+_).collect
 ```
 ![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/reduce%20by.PNG)
 
+### Performing the sum
+```
+var a=Array(1,2,3,4,5)
+a.sum
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/add_img.PNG)
+### or
+```
+var a =Array(1,2,3,4,5)
+a.reduceLeft(_+_)
+```
+
+### or
+```
+a.reduceLeft( (a,b) => {a+b} )
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/reduce%20by.PNG)
+
+```
+a.reduceLeft((a,b)=>{println(a+","+b); a+b})
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/reduce_left.PNG)
+```
+a.reduceRight((a,b)=>{println(a+","+b); a+b})
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/reduce%20rigth.PNG)
+### How does reduceLeft work ?
+It takes a function as an argument, that function needs 2 arguments a.reduceLeft(a,b => {a+b})
+- It would take in 1,2 =>1+2 =3 
+- Then it would take 3,3=>3+3=6
+- Then it would take 6,3=>6+3
+- The reduce API internally uses the fold Api 
+
+## Fold
+
+```val a = List(1,2,3,4,5)
+a.foldLeft(0)(_+_)
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/reduce%20by.PNG)
+```
+val b = List("Hello","How","are","you")
+b.foldLeft("")(_+_) 
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/reduce%20by.PNG)
+```
+val b = List("Hello","How","are","you")
+b.foldLeft(",")(_+_+",")
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/reduce%20by.PNG)
