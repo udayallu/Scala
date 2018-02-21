@@ -390,14 +390,14 @@ It takes a function as an argument, that function needs 2 arguments a.reduceLeft
 ```val a = List(1,2,3,4,5)
 a.foldLeft(0)(_+_)
 ```
-![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/reduce%20by.PNG)
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/fold.PNG)
 ```
 val b = List("Hello","How","are","you")
 b.foldLeft("")(_+_) 
 ```
-![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/reduce%20by.PNG)
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/fold%20str.PNG)
 ```
 val b = List("Hello","How","are","you")
 b.foldLeft(",")(_+_+",")
 ```
-![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/reduce%20by.PNG)
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/fold%20str.PNG)
