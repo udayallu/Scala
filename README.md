@@ -269,3 +269,50 @@ val myfilerddhdfsmovie = sc.textFile("hdfs://localhost:54310/user/hduser/books/b
 var d = myfilerddhdfsmovie.mapPartitions(funcpartitionstring)
 d.foreach(println)
 ```
+
+### Unioun Operation 
+```
+val myrdd1 = sc.parallelize(List(1,2,3,4,5,6,7,8,9,10))
+val myrdd2 = sc.parallelize(List(50,60,70))
+val u = myrdd1.union(myrdd2)
+u.collect
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/unioun.PNG)
+### Intersections
+```
+val myrdd1 = sc.parallelize(List(1,2,3,4,5,6,7,8,9,10))
+val myrdd2 = sc.parallelize(List(50,60,70,10))
+val u = myrdd1.intersection(myrdd2)
+u.collect
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/intersaction.PNG)
+### distinct Opeartion
+```
+val myrdd = sc.parallelize(List(1,2,3,4,5,6,7,8,9,10,10))
+val uniq = myrdd.distinct()
+uniq.collect
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/distinct.PNG)
+### Understanding groupBykey and reduceByke
+
+#### Getting the list of the words
+```
+val sent = sc.makeRDD(List("Hello hi how are you hi I am hello"))
+val mywords = sent.flatMap(_.split(" ")) 
+mywords.collect
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/mywords.PNG)
+#### Group By
+```
+val sent = sc.makeRDD(List("Hello hi how are you hi I am hello"))
+val mywords = sent.flatMap(_.split(" "))  
+
+val mykv = mywords.map(words => (words,1)) 
+
+val mywc = mykv.groupByKey() 
+val myfinalsc = mywc.map(a=>(a._1,a._2.sum))
+myfinalsc.collect
+
+```
+![alt text](https://github.com/udayallu/Scala/blob/master/Scala%20Images/group_by.PNG)
+#### Reduce By
