@@ -1,0 +1,93 @@
+====================================================================
+
+Understanding RDD's 
+--------------------
+There are 3 ways to create RDD's (Note: These commands must be executed in spark-shell and not in scala shell !)
+
+1)RDD's on in memory data(This is will be seldom used)
+------------------------------------------------------------------
+val mylines = List("This is Bangalore", "Its not so cool out here")
+val myrdd  = sc.makeRDD(mylines)
+myrdd.collect()    //collection is an action which triggers transformations/computations to happen 
+
+
+Note: The default return type of collect() is an array (in memory data scructure) so its not recommended to use this on large data sets before applying appropriate transformations ! 
+Instead, we should be using iterator (loops) to print the contents of an rdd ...
+
+myrdd.foreach(prinltn)
+
+OR
+
+for (a <- myrdd) { println(a) } 
+
+
+2)Direclty reading from a text file in local file system (will be the most used one)
+------------------------------------------------------------------------------------------
+val myfilerdd = sc.textFile("path")
+
+Note: This path can be local or HDFS
+
+myfilerdd.collect()
+
+An example
+-----------
+val myfilerdd = sc.textFile("/home/hduser/scala_samples/sample.txt")
+myfilerdd.collect()
+
+Lets try it out with a HDFS path ! 
+----------------------------------
+val myfilerddhdfs = sc.textFile("hdfs://localhost:54310/user/hduser/sample/10mb.txt")
+myfilerddhdfs.collect()
+
+note: the port number has to be found out from core-site.xml in the hadoop installation folder. 
+
+
+Lets try to change the input split size of a file and load into HDFS and see the number of partitions in an RDD which is created for that HDFS file 
+------------------------------
+
+hadoop fs -D fs.local.block.size=24 -put sample.txt foolish 
+
+Note: sometime the above command might not work ! (2 reasons) 
+In such cases, we might have to manually change the hdfs-site.xml configuration to alter the block size 
+
+Note: sample.txt is a file of few Bytes in size (100Bytes)
+In the above command, we have kept the block size of 24 bytes only for one file (sample.txt) and load into HDFS, check the number of blocks 
+using HDFS web US (localhost:50030)
+
+Note: After setting the HDFS input split size to 10, create an HDFS RDD and check for the number of partitions
+
+val myfilerddhdfs = sc.textFile("hdfs://localhost:54310/user/hduser/sample/10mb.txt")
+myfilerddhdfs.getNumPartitions
+
+(Note: After this experiment, its recommended to change the HDFS block size to its default 128MB )
+
+This command executed from command line would give the system wide settings for block size 
+
+hdfs getconf -confKey dfs.blocksize
+
+
+
+3)Another way of creating RDD's is using the parallelize option 
+------------------------------------------------------------------
+
+val mylist = List(1 to 50)
+val myrdd = sc.parallelize(mylist,5)
+myrdd.getNumPartitions
+
+In the above example, we are creating an RDD with 5 partitions 
+
+Note: The maximum size of a parition in a RDD is 2GB i.e if the RDD is 
+more than 2GB, we need to repartition it. 
+
+val mylist = List(1 to 50)
+val myrdd = sc.parallelize(mylist,5)
+myrdd.getNumPartitions
+val mynewrdd = myrdd.repartition(10)
+
+
+Note: This option will be used for large files in local file system, usually there will be files in HDFS which will be used to create RDD's 
+
+
+
+
+

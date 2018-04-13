@@ -1,0 +1,95 @@
+https://www.youtube.com/watch?v=bnOTEfNEQzw
+
+
+
+These things can be executed in the scala shell 
+
+a=Array(1,2,3,4,5)
+a.sum //This would print the sum but the same thing can be achieved using 
+
+a.reduceLeft(_+_) //This is a lambda expression (function) for for finding the sum
+
+OR
+
+a.reduceLeft( (a,b) => {a+b} )
+
+
+q)How does reduceLeft work ?
+A) It takes a function as an argument, that function needs 2 arguments
+
+a.reduceLeft(a,b => {a+b})
+
+It would take in 1,2 =>1+2 =3 //This o/p 3 is taken as next input a, whereas the input b would come from the Array i.e item 3
+Then it would take 3,3=>3+3=6
+Then               6,3=>6+3
+
+
+
+a.reduceLeft((a,b)=>{println(a+","+b); a+b})
+
+//reduceLeft would do the addition operation starting from the left hand side of the collection items whereas reduceRight ...
+
+
+a.reduceRight((a,b)=>{println(a+","+b); a+b})
+
+Note: Reduce left or reduce right can accept data arguments which are of the same type in the collection ! 
+
+
+=================================================================================================================
+Understanding folds
+------------------------------------------------------------------
+val a = List(1,2,3,4,5)
+
+a.foldLeft(0)(_+_)
+
+The first argument is called the accumulator (it can be initialized to anything, of any data type) 
+Based on the value of accumulator, the behavior of fold function change as per accumulator's value ! 
+
+
+val b = List("Hello","How","are","you")
+b.foldLeft("")(_+_) 
+//This will produce a concatenated string of all the items in the collection "a"
+
+b.foldLeft(",")(_+_+",")
+
+
+
+
+//Finding the max or min on large data set using the Scala API foldLeft
+a.foldLeft(0)( (acc,ele) => (if(ele > acc) ele else acc ))
+
+Q)How to read this above statement ?
+
+The foldLeft takes an initializer called as an accumulator which in our case is initialized to zero
+
+It takes a function as an argument which takes 2 values as parameters 
+
+acc : Which is the accumulator 
+ele : This is a place holder (a variable) to hold each element from the collection (which in our case is a list of numbers)
+
+
+Note: Using fold is easier to write code, however the same can be implemented using reduce as well as given below 
+
+
+def mymax(a: Int, b: Int) : Int = {
+var max = 0 
+if (a>b) {max = a}
+else {max = b}
+return max }
+
+
+val a = List(1,2,3,4,5)
+a.reduce((a,b) => (mymax(a,b))
+
+//This would produce the same result as using the foldLeft
+
+Note: reduce internally calls foldLeft scala API ! 
+
+
+
+
+
+
+
+
+

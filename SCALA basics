@@ -1,0 +1,522 @@
+1)
+
+The below to be typed in the scala shell
+
+scala>
+
+object HelloWorld {
+   def main(args: Array[String]) {
+      println("Hello, world!")
+
+//note: main is a method here, it should start with a small letter
+
+   }
+}
+
+
+To execute the above code snippet, enter the below in the scala shell
+
+scala> HelloWorld.main(Array())
+
+
+
+2)The same code can be pasted in a text file named "helloworld.scala"
+
+Note: The file name should end with .scala 
+
+Compiling it from the UNIX shell 
+--------------------------------
+scalac helloworld.scala 
+
+
+Running the program
+-------------------
+
+scala <name of the object containing the main method>
+
+scala HelloWorld
+
+
+
+
+====================================================
+Identifiers in SCALA 
+---------------------
+
+q)What are identifiers ?
+
+Any program would contain 
+
+classes, objects, variables and functions. Each of them needs to be 
+identified by a name, these names are called identifiers ! 
+
+
+Rules for identifiers 
+---------------------
+
+1)Class names and Object names must start with a capital letter 
+2)Function names must start with small letter 
+3)Variable names must start with a small letter or an underscore _
+
+aname, _ball (valid)
+
+123myint (invalid)
+
+
+
+=====================================================
+
+
+
+
+
+============================================================
+List of SCALA keywords which cannot be used as variable names
+--------------------------------------------------------------
+
+abstract 	case 	catch 	class
+def 	do 	else 	extends
+false 	final 	finally 	for
+forSome 	if 	implicit 	import
+lazy 	match 	new 	Null
+object 	override 	package 	private
+protected 	return 	sealed 	super
+this 	throw 	trait 	Try
+true 	type 	val 	Var
+while 	with 	yield
+============================================================
+
+
+
+
+
+
+========================================
+Basic data type in SCALA
+----------------------------
+
+Byte, Short, Int, Long, Float , Double , Char, String, Boolean , 
+Unit, Null, Nothing, Any, AnyRef
+
+========================================
+
+
+
+
+
+
+
+====================================================
+Variables in SCALA
+------------------
+There are 2 broad types (mutables and immutables)
+
+mutables(var) : value can be changed 
+eg: 
+var a= 10,
+a=11
+
+
+
+immutables (val) : value cannot be changed once assigned 
+eg : 
+
+val b = 10
+b=11 (this will throw an error)
+
+
+
+Declaring variable and assigning values to it 
+---------------------------------------------
+
+var a :Int = 10
+var b: Double = 12.34
+
+a=11
+b=b+1
+
+var c = 10 //Automatically type inferred (statically typed)
+val d = 11.11
+
+val myname = "Ironman"
+
+OR 
+
+val youname : String = "Superman"
+
+
+Multiple assignments 
+--------------------
+
+
+val (a: Int, b: String) = Pair(1, "one")
+
+We cannot do something like 
+
+val(a: Int, b:String, c:Double) = Pair(1,"One",1.1)  //This will fail ! 
+
+====================================================
+
+
+====================================================
+Basics of functions in SCALA 
+----------------------------------------------------
+Note: Its a good practice to have the function names in 
+small letters 
+
+
+def myfunc(a:Int,b:Int)   
+{
+   var c= a*b ;
+   println("The product of the two numbers is "  + c)
+
+}
+
+====================================================================
+
+
+
+
+=====================================================================
+Classes in Scala 
+------------------------------------------------------
+
+
+class Quadrilateral(x: Int, y: Int) {
+   var a: Int = x 
+   var b: Int = y
+
+   def area() {
+          var x = a*b                    
+          println("The area of the quadrilateral is " + x + "square units")
+         
+         }
+}
+
+
+
+object Area {
+
+    def main(args: Array[String]) {
+      
+       val square = new Quadrilateral(10,10)          
+       val a = square.area()
+       println("The area of the quadrilateral is " + a + "square units")
+
+    } 
+
+}
+
+
+=======================================================
+
+
+
+========================================================
+If else condition in SCALA
+-----------------------------------
+object Myifelse {
+
+def main(args:Array[String]) {
+ var a = 10;
+ var b = 20;
+ 
+ if(a>b)  {
+            println("The value of a is greater")  
+ 
+          } 
+   else 
+          {
+             println("The value of b is greater")  
+ 
+          }
+                           }//end of main
+
+   } //end of object 
+
+
+--------------------
+While loops in SCALA 
+--------------------
+object Mywhile {
+
+   def main(args : Array[String]) {
+
+              var a = 10 ;
+              while(a<50) 
+                  {
+                   println("The value is " + a)
+                   a=a+1
+                  }
+                                  }
+}
+
+
+
+========================================================
+
+
+
+
+
+
+=================================================================
+Passing command line arguments
+---------------------------------------------------------------
+object Myifelse {
+
+def main(args:Array[String]) {
+ var a = 10;
+ var b = 20;
+
+ 
+//Check the contents of the args for presence of command line arguments 
+ if(args.lenght < 1 )
+  {
+     println("There are no command line arguments")
+
+  }
+
+  else 
+    {
+     println("There are command line agruments")
+  
+    }
+
+
+ 
+ if(a>b)  {
+            println("The value of a is greater")  
+ 
+          } 
+   else 
+          {
+             println("The value of b is greater")  
+ 
+          }
+                           }//end of main
+
+   } //end of object 
+
+
+============================================================================
+
+
+
+
+
+
+
+
+
+==============================================================================
+Functions returning values 
+------------------------------------------------------------------------------
+
+object Demofunc {
+
+
+    def mysum(a:Int,b:int) :Int = {
+     
+      var sum : Int = 0
+      sum=a+b
+      return sum
+
+    } 
+
+   def main(args:Array[String]) {
+                                                     
+               println("The sum of 10 and 20 is " + mysum(10,20))
+
+                                 }
+
+} 
+
+
+----------------------------------------
+Function literals * (important concept)
+----------------------------------------
+These are one line functions which look like 
+
+object Myfunclit {
+
+  def main(args:Array[String]) {
+
+      var add = (a:Int,b:Int) => a+b    //This is called a function literal 
+      println("Sum of 10 and 20 is " + add(10,20))
+                              }
+
+                }
+
+=================================================================================
+
+
+
+
+
+======================================================
+Closure
+------------------------------------------------------
+object Myclojure {
+
+def main(args:Array[String])
+  {
+    val dollar_convertor :Int = 67    
+
+    val convert = (x:Double) => x * dollar_convertor
+
+    println("The value of 10 dollars in INR is " + convert(10))    
+
+  }
+
+
+
+}
+
+
+Note: Clojure is a special kind of function where the 
+return value of the function depends on the variable
+defined outside the scope of the function  
+====================================================
+
+
+
+==============================================================================
+Arrays
+-----------------------------------------------------------------------------
+object Myarray{
+
+ def main(args:Array[String])
+ {
+   val mynum = Array(1,2,3,4,5) 
+   val mynames = Array("Ram","Sham","Somu")   
+   
+   println(mynum)
+   println(mynames)
+
+   //Now try this 
+ 
+   println(mynum.mkString(" "))
+   println(mynames.mkString(" "))
+
+
+   //Another way to print the array contents, using for loops 
+
+   for(n<-mynum)
+       {
+         println(nynum(n-1))
+       }
+
+
+ }  
+
+}
+
+
+
+-----------------------------------------------------------------
+Another way of creating and initiazling array elements 
+-----------------------------------------------------------------
+
+var myarr = new Array[Strings](3)
+myarr(0) = "Ram"
+myarr(1) = "Laxman"
+myarr(2) = "Sita"
+
+
+
+
+
+==============================================================================
+Scala collections
+-----------------------------------------------------------------------------
+Collections , as the name suggests, it contains a group of elements 
+
+List  : contains a list of similar elements 
+Tuples : can contain elements of different type unlike lists
+Maps : collection of key-value pairs 
+Sets : collections of pairwise elements of same type 
+
+
+Lists
+---------------------------
+
+var mylist : List[Int] = List(1,2,3,4,5)  //Type is explictly mentioned by the programmer
+
+
+
+OR 
+
+var mylist = List(1,2,3,4,5) //Type will be infered by the scala compiler 
+myist.getClass   //this will show the data type 
+
+
+TRY THESE THINGS (in the scala shell)
+--------------------------------------
+var mylist1 = List.range(1,50) 
+var mylist2 = List.range(1,50,2)
+
+
+Tuples (hetrogenous collection of elements)
+-------------------------------------------
+Note: Tuples are not key value pairs
+
+
+val mytuple = (1,"Ram","Apples",12.34)
+
+mytuple._1
+mytuple._2
+
+
+
+
+A sample program involving lists (student assignment)
+--------------------------------------------------------------------------------
+WAP to create a list of numbers from 1 to 100 and print only those numbers which 
+are divisible by 7 and also the count of the number of such numbers which are divisible 
+by 7
+
+Hint : 
+------
+To iterate through a list :
+---------------------------
+val mylist = List.range(1,50)
+mylist.foreach( println )
+
+OR
+
+for (a <- mylist ) { println(a) } 
+
+
+
+
+var = 10
+if(a%5 == 0)    // checks if remainder is zero when a is divided by 5
+  { println("a is divisible by 5") }
+else 
+  {println(" a is no divisible by 5") }
+
+
+================================================================================
+
+
+
+=============================================================================
+Adding data elements to Lists
+-------------------------------
+
+val mylist = scala.collection.mutable.MutableList(1,2,3)
+mylist.++=(List(4,5,6))
+
+
+Note : Do not use it often as it can impair performance
+
+
+
+=============================================================================
+
+
+
+
+
+

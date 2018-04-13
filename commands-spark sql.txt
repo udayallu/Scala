@@ -1,0 +1,107 @@
+Note: Read about the drawbacks of data frames and how do data sets adress them ! 
+
+
+-----creating sql context (especially in eclipse)----
+import org.apache.spark.sql.SQLContext
+val sqlCtx = new SQLContext(sc)
+import sqlCt._
+
+q)Ways of creating a data frame 
+1)Using the sources like JSON or CSV file
+2)Can be created from an existing RDD
+3)By querying an existing data frame 
+4)By programatically defining a schema
+
+
+
+q)Reading from a JSON file to create a data frame 
+
+val mydf = sqlCtx.jsonFile("<path>")
+
+Note: If we directly create a dataframe from a sql context then the schema is auto infered 
+
+mydf.show()
+
+q)Reading from a text file using spark context and then convert into a data frame then the header info is not available 
+
+
+val myobj = sc.textFile("json file")
+val newdf = myobj.toDF
+newdf.show()
+
+q)Querying from nested json data file 
+
+{ "name":"John", "age":31, "Address" : {"city":"Buffalo" , "State":"New York"}}
+{ "name":"Bob", "age":29, "Address" : {"city":"Trenton" , "State":"New Jersey"}}
+
+val mydf = sqlCtx.jsonFile("json file")
+mydf.showSchema()
+
+q)Querying the sub structure elements using sql style querying 
+
+val sel = sqlCtx.sql("select name, Address.city from mydf") //This will throw an error as table not found 
+
+Soln : //we need to register a temporary table
+
+mydf.registerTempTable("emp") 
+val sel = sqlCtx.sql("select name,Address.city from emp")
+
+
+q)Performing a filtering operation 
+
+val ny = sqlCtx.sql("select * from emp where Address.state = 'New York' ")
+
+ny.saveAsTextFile("file:/folder path")
+ny.saveAsParquetFile("file:/folder path")
+
+Note: Parquet file is a compressed file
+
+q)To read back from the folder into a data frame 
+
+val mydf = sqlCtx.parquetFile("file:/ folder path")
+
+q)Creating a data frame by explictly providing the syntax 
+
+Suppose a file called "people.txt" 
+contains the following data 
+1,Ram,28
+2,Sham,31
+3,Ted,43
+
+
+case class person (id:Int, name:String, age:Int)
+
+
+val mytab = sc.textFile("people.txt").map(_.split).map(p=>person(p(0),p(1),p(2)))
+
+Note: We might have to do a dynamic type 
+conversion if we run into type casting issues 
+
+
+p(0).toInt, p(2).toInt and then execute it in case if the schema is not displayed ! 
+
+val mydf = mytab.toDF
+
+mydf.show()
+
+
+q)Spark version 2, has an option to auto detect the schema using the option called infer-schema while trying to read data from a csv file which has the 
+header information 
+
+
+q)Problems with data frames and advantages of data sets 
+A data frame when converted into an RDD looses the type information, so we need to first create RDD using structured data as source, then cast it using case class 
+and this will result in a data set. 
+
+case class person (id:Int, name:String, age:Int)
+
+val myrdd  = sc.makeRDD(Seq((1,"Ram",31),(2,"Sham",25)))
+val mydf = myrdd.toDF
+val mydataset = mydf.as[person] //here I am using the case class to convert the data frame into a data set to ensure the schema is retained ! 
+
+
+
+q)Data sets are seralized objects, saves space when compared to regular RDD's
+
+
+

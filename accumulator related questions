@@ -1,0 +1,34 @@
+
+Understanding accumulators :
+They are shared variables which can be updated when required
+============================================================
+val accum = sc.longAccumulator("My Accumulator")
+
+val myrdd = sc.parallelize(List(1, 2, 3, 4,5,6,7))
+myrdd.foreach(x => accum.add(1))   //The user defined accumulator gets added each time when the loop is executed on the rdd elements 
+
+scala> accum.value     //Accumulator value can also be reset to zero using the accum.reset
+
+
+
+
+
+q) Write a program which demonstrates the use of accumulators to verify how many tasks were executed on any given data set of your choice
+
+
+
+q) Demonstrate using a program to find out how many even numbers are there in a given data set. This has to be done using 2 ways 
+   a)Using the filter transformation 
+   b)Try doing the same using accumulators 
+   c)Summarize what is the difference in the above 2 methods and which is more efficient and give an analogy in a different problem 
+     where accumulators can be used efficiently 
+
+q)In the above question, one might feel that accumulators are really handy, but there is a drawback in using them. Explain what would that be with an example. (No need of any program)
+
+
+
+
+
+
+
+
